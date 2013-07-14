@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB932F94179281D500FB33E2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F93179281D500FB33E2 /* UIKit.framework */; };
+		AB932F96179281D500FB33E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F95179281D500FB33E2 /* Foundation.framework */; };
+		AB932F98179281D500FB33E2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F97179281D500FB33E2 /* CoreGraphics.framework */; };
+		AB932F9E179281D500FB33E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB932F9C179281D500FB33E2 /* InfoPlist.strings */; };
+		AB932FA0179281D500FB33E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932F9F179281D500FB33E2 /* main.m */; };
+		AB932FA4179281D500FB33E2 /* TMOPSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FA3179281D500FB33E2 /* TMOPSAppDelegate.m */; };
+		AB932FA6179281D500FB33E2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB932FA5179281D500FB33E2 /* Default.png */; };
+		AB932FA8179281D500FB33E2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB932FA7179281D500FB33E2 /* Default@2x.png */; };
+		AB932FAA179281D500FB33E2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB932FA9179281D500FB33E2 /* Default-568h@2x.png */; };
+		AB932FAD179281D500FB33E2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB932FAB179281D500FB33E2 /* MainStoryboard.storyboard */; };
+		AB932FB0179281D500FB33E2 /* TMOPSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FAF179281D500FB33E2 /* TMOPSViewController.m */; };
+		AB932FB8179281D500FB33E2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932FB7179281D500FB33E2 /* SenTestingKit.framework */; };
+		AB932FB9179281D500FB33E2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F93179281D500FB33E2 /* UIKit.framework */; };
+		AB932FBA179281D500FB33E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F95179281D500FB33E2 /* Foundation.framework */; };
+		AB932FC2179281D500FB33E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB932FC0179281D500FB33E2 /* InfoPlist.strings */; };
+		AB932FC5179281D500FB33E2 /* TMOnePageScrollTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FC4179281D500FB33E2 /* TMOnePageScrollTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AB932FBB179281D500FB33E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB932F88179281D500FB33E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB932F8F179281D500FB33E2;
+			remoteInfo = TMOnePageScroll;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AB932F90179281D500FB33E2 /* TMOnePageScroll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMOnePageScroll.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB932F93179281D500FB33E2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AB932F95179281D500FB33E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AB932F97179281D500FB33E2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AB932F9B179281D500FB33E2 /* TMOnePageScroll-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TMOnePageScroll-Info.plist"; sourceTree = "<group>"; };
+		AB932F9D179281D500FB33E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AB932F9F179281D500FB33E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AB932FA1179281D500FB33E2 /* TMOnePageScroll-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TMOnePageScroll-Prefix.pch"; sourceTree = "<group>"; };
+		AB932FA2179281D500FB33E2 /* TMOPSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMOPSAppDelegate.h; sourceTree = "<group>"; };
+		AB932FA3179281D500FB33E2 /* TMOPSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMOPSAppDelegate.m; sourceTree = "<group>"; };
+		AB932FA5179281D500FB33E2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		AB932FA7179281D500FB33E2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		AB932FA9179281D500FB33E2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AB932FAC179281D500FB33E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		AB932FAE179281D500FB33E2 /* TMOPSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMOPSViewController.h; sourceTree = "<group>"; };
+		AB932FAF179281D500FB33E2 /* TMOPSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMOPSViewController.m; sourceTree = "<group>"; };
+		AB932FB6179281D500FB33E2 /* TMOnePageScrollTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMOnePageScrollTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB932FB7179281D500FB33E2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		AB932FBF179281D500FB33E2 /* TMOnePageScrollTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TMOnePageScrollTests-Info.plist"; sourceTree = "<group>"; };
+		AB932FC1179281D500FB33E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AB932FC3179281D500FB33E2 /* TMOnePageScrollTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMOnePageScrollTests.h; sourceTree = "<group>"; };
+		AB932FC4179281D500FB33E2 /* TMOnePageScrollTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMOnePageScrollTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB932F8D179281D500FB33E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932F94179281D500FB33E2 /* UIKit.framework in Frameworks */,
+				AB932F96179281D500FB33E2 /* Foundation.framework in Frameworks */,
+				AB932F98179281D500FB33E2 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB932FB2179281D500FB33E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932FB8179281D500FB33E2 /* SenTestingKit.framework in Frameworks */,
+				AB932FB9179281D500FB33E2 /* UIKit.framework in Frameworks */,
+				AB932FBA179281D500FB33E2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB932F87179281D500FB33E2 = {
+			isa = PBXGroup;
+			children = (
+				AB932F99179281D500FB33E2 /* TMOnePageScroll */,
+				AB932FBD179281D500FB33E2 /* TMOnePageScrollTests */,
+				AB932F92179281D500FB33E2 /* Frameworks */,
+				AB932F91179281D500FB33E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB932F91179281D500FB33E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB932F90179281D500FB33E2 /* TMOnePageScroll.app */,
+				AB932FB6179281D500FB33E2 /* TMOnePageScrollTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB932F92179281D500FB33E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB932F93179281D500FB33E2 /* UIKit.framework */,
+				AB932F95179281D500FB33E2 /* Foundation.framework */,
+				AB932F97179281D500FB33E2 /* CoreGraphics.framework */,
+				AB932FB7179281D500FB33E2 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB932F99179281D500FB33E2 /* TMOnePageScroll */ = {
+			isa = PBXGroup;
+			children = (
+				AB932FA2179281D500FB33E2 /* TMOPSAppDelegate.h */,
+				AB932FA3179281D500FB33E2 /* TMOPSAppDelegate.m */,
+				AB932FAB179281D500FB33E2 /* MainStoryboard.storyboard */,
+				AB932FAE179281D500FB33E2 /* TMOPSViewController.h */,
+				AB932FAF179281D500FB33E2 /* TMOPSViewController.m */,
+				AB932F9A179281D500FB33E2 /* Supporting Files */,
+			);
+			path = TMOnePageScroll;
+			sourceTree = "<group>";
+		};
+		AB932F9A179281D500FB33E2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB932F9B179281D500FB33E2 /* TMOnePageScroll-Info.plist */,
+				AB932F9C179281D500FB33E2 /* InfoPlist.strings */,
+				AB932F9F179281D500FB33E2 /* main.m */,
+				AB932FA1179281D500FB33E2 /* TMOnePageScroll-Prefix.pch */,
+				AB932FA5179281D500FB33E2 /* Default.png */,
+				AB932FA7179281D500FB33E2 /* Default@2x.png */,
+				AB932FA9179281D500FB33E2 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB932FBD179281D500FB33E2 /* TMOnePageScrollTests */ = {
+			isa = PBXGroup;
+			children = (
+				AB932FC3179281D500FB33E2 /* TMOnePageScrollTests.h */,
+				AB932FC4179281D500FB33E2 /* TMOnePageScrollTests.m */,
+				AB932FBE179281D500FB33E2 /* Supporting Files */,
+			);
+			path = TMOnePageScrollTests;
+			sourceTree = "<group>";
+		};
+		AB932FBE179281D500FB33E2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB932FBF179281D500FB33E2 /* TMOnePageScrollTests-Info.plist */,
+				AB932FC0179281D500FB33E2 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB932F8F179281D500FB33E2 /* TMOnePageScroll */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB932FC8179281D500FB33E2 /* Build configuration list for PBXNativeTarget "TMOnePageScroll" */;
+			buildPhases = (
+				AB932F8C179281D500FB33E2 /* Sources */,
+				AB932F8D179281D500FB33E2 /* Frameworks */,
+				AB932F8E179281D500FB33E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TMOnePageScroll;
+			productName = TMOnePageScroll;
+			productReference = AB932F90179281D500FB33E2 /* TMOnePageScroll.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AB932FB5179281D500FB33E2 /* TMOnePageScrollTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB932FCB179281D500FB33E2 /* Build configuration list for PBXNativeTarget "TMOnePageScrollTests" */;
+			buildPhases = (
+				AB932FB1179281D500FB33E2 /* Sources */,
+				AB932FB2179281D500FB33E2 /* Frameworks */,
+				AB932FB3179281D500FB33E2 /* Resources */,
+				AB932FB4179281D500FB33E2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB932FBC179281D500FB33E2 /* PBXTargetDependency */,
+			);
+			name = TMOnePageScrollTests;
+			productName = TMOnePageScrollTests;
+			productReference = AB932FB6179281D500FB33E2 /* TMOnePageScrollTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB932F88179281D500FB33E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TMOPS;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = thinkermobile;
+			};
+			buildConfigurationList = AB932F8B179281D500FB33E2 /* Build configuration list for PBXProject "TMOnePageScroll" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AB932F87179281D500FB33E2;
+			productRefGroup = AB932F91179281D500FB33E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB932F8F179281D500FB33E2 /* TMOnePageScroll */,
+				AB932FB5179281D500FB33E2 /* TMOnePageScrollTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB932F8E179281D500FB33E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932F9E179281D500FB33E2 /* InfoPlist.strings in Resources */,
+				AB932FA6179281D500FB33E2 /* Default.png in Resources */,
+				AB932FA8179281D500FB33E2 /* Default@2x.png in Resources */,
+				AB932FAA179281D500FB33E2 /* Default-568h@2x.png in Resources */,
+				AB932FAD179281D500FB33E2 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB932FB3179281D500FB33E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932FC2179281D500FB33E2 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AB932FB4179281D500FB33E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB932F8C179281D500FB33E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932FA0179281D500FB33E2 /* main.m in Sources */,
+				AB932FA4179281D500FB33E2 /* TMOPSAppDelegate.m in Sources */,
+				AB932FB0179281D500FB33E2 /* TMOPSViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB932FB1179281D500FB33E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB932FC5179281D500FB33E2 /* TMOnePageScrollTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AB932FBC179281D500FB33E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB932F8F179281D500FB33E2 /* TMOnePageScroll */;
+			targetProxy = AB932FBB179281D500FB33E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AB932F9C179281D500FB33E2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB932F9D179281D500FB33E2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AB932FAB179281D500FB33E2 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB932FAC179281D500FB33E2 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		AB932FC0179281D500FB33E2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB932FC1179281D500FB33E2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AB932FC6179281D500FB33E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AB932FC7179281D500FB33E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB932FC9179281D500FB33E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
+				INFOPLIST_FILE = "TMOnePageScroll/TMOnePageScroll-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AB932FCA179281D500FB33E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
+				INFOPLIST_FILE = "TMOnePageScroll/TMOnePageScroll-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AB932FCC179281D500FB33E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TMOnePageScroll.app/TMOnePageScroll";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
+				INFOPLIST_FILE = "TMOnePageScrollTests/TMOnePageScrollTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		AB932FCD179281D500FB33E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TMOnePageScroll.app/TMOnePageScroll";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
+				INFOPLIST_FILE = "TMOnePageScrollTests/TMOnePageScrollTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB932F8B179281D500FB33E2 /* Build configuration list for PBXProject "TMOnePageScroll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB932FC6179281D500FB33E2 /* Debug */,
+				AB932FC7179281D500FB33E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB932FC8179281D500FB33E2 /* Build configuration list for PBXNativeTarget "TMOnePageScroll" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB932FC9179281D500FB33E2 /* Debug */,
+				AB932FCA179281D500FB33E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AB932FCB179281D500FB33E2 /* Build configuration list for PBXNativeTarget "TMOnePageScrollTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB932FCC179281D500FB33E2 /* Debug */,
+				AB932FCD179281D500FB33E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB932F88179281D500FB33E2 /* Project object */;
+}
