@@ -26,14 +26,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class TMOnePageView;
-@interface TMOPActionItem : UIView
+@interface TMOPActionItem : NSObject
 
 //@property (nonatomic) CGFloat startPosition;
 //@property (nonatomic) CGFloat lifeDistance;
 
-@property (nonatomic) BOOL enableAction;
+@property (nonatomic, strong) UIView *contentView;
 
-@property (nonatomic, copy) CATransform3D (^action)(CATransform3D transform, TMOnePageView *onePageView);
-
+@property (nonatomic, copy) CATransform3D (^actionBlock)(CATransform3D transform, TMOnePageView *onePageView);
+@property (nonatomic, copy) CGFloat (^alphaBlock)(CGFloat currentAlpha, TMOnePageView *onePageView);
 
 @end

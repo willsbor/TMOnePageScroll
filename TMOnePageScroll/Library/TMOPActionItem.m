@@ -26,12 +26,11 @@
 
 @implementation TMOPActionItem
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
         // Initialization code
-        _enableAction = YES;
     }
     return self;
 }

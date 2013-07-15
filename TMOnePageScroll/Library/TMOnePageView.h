@@ -24,12 +24,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class TMOPActionItem;
 @interface TMOnePageView : UIView
 
 @property (nonatomic) CGFloat positionMark;
-@property (nonatomic) CGFloat contentWidth;
+@property (nonatomic, readonly) CGFloat contentWidth;
 @property (nonatomic) CGFloat windowWidth;
+@property (nonatomic) NSUInteger numberOfPage;
 
-
+- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView;
 
 @end

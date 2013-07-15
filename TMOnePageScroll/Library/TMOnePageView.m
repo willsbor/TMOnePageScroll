@@ -38,13 +38,22 @@
     NSTimer *_animationTimer;
     CGFloat _perspective;
     CGSize _viewpointOffset;
+    CGFloat _velocity;
+    CGFloat _scrollSpeed;
+    
+    CGFloat _startOffset;
+    CGFloat _endOffset;
+    double _startTime;
+    NSTimeInterval _scrollDuration;
     
     NSMutableArray *_itemsArray;
     
-    TMOPActionItem *_tmpItem;
-    
     struct {
         unsigned int scrolling:1;
+        unsigned int decelerating:1;
+        
+        unsigned int paging:1;
+        unsigned int oneWindowEachPan:1;
     } _statusFlag;
 }
 
@@ -52,11 +61,33 @@
 
 @implementation TMOnePageView
 
+
+- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView
+{
+    __autoreleasing TMOPActionItem *item = [[TMOPActionItem alloc] init];
+    CGRect f = aContentView.frame;
+    f.origin = CGPointZero;
+    aContentView.frame = f;
+    
+     item.contentView = [[UIView alloc] initWithFrame:aContentView.bounds];
+    [item.contentView addSubview:aContentView];
+    item.contentView.alpha = 0.0;
+    [self addSubview:item.contentView];
+    
+    [_itemsArray addObject:item];
+    
+    return item;
+}
+
 - (void) setUp
 {
     _perspective = -1.0f/500.0f;
     _viewpointOffset = CGSizeZero;
-    _contentWidth = 500.0;
+    _numberOfPage = 1.0;
+    _scrollSpeed = 1.0;
+    _statusFlag.paging = YES;
+    _statusFlag.oneWindowEachPan = YES;
+    _statusFlag.scrolling = _statusFlag.decelerating = NO;
     
     _itemsArray = [[NSMutableArray alloc] init];
     
@@ -70,28 +101,7 @@
     
     [self addSubview:_mainContentView];
     
-    
-    //CATransform3D transform = CATransform3DIdentity;
-    //transform.m34 = _perspective;
-    //transform = CATransform3DTranslate(transform, -_viewpointOffset.width, -_viewpointOffset.height, 0.0f);
-    
-    _tmpItem = [[TMOPActionItem alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    [_tmpItem setAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
-
-        if (onePageView.positionMark < 160) {
-            return CATransform3DTranslate(transform, onePageView.windowWidth - onePageView.positionMark, 0.0f, 0.0f);
-        }
-        else if (onePageView.positionMark < 300) {
-            return CATransform3DTranslate(transform, 160, 0.0f, 0.0f);
-        }
-        else {
-            return CATransform3DTranslate(transform, onePageView.windowWidth - (onePageView.positionMark - 140), 0.0f, 0.0f);
-        }
-    }];
-    
-    _tmpItem.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-    [_mainContentView addSubview:_tmpItem];
-}
+    }
 
 - (CGFloat) windowWidth
 {
@@ -174,22 +184,23 @@
 - (void)didScroll
 {
     
-    //[self loadUnloadViews];
-   // [self transformItemViews];
+    [self updateAllItems];
+    
+}
+
+- (void) updateAllItems
+{
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = _perspective;
     transform = CATransform3DTranslate(transform, -_viewpointOffset.width, -_viewpointOffset.height, 0.0f);
+    transform = CATransform3DTranslate(transform, -_positionMark, 0.0f, 0.0f);
     
-    
-    //if (_tmpItem.startPosition - _tmpItem.frame.size.width >= _scrollOffset
-    //    && _tmpItem.startPosition <= _scrollOffset + self.frame.size.width) {
+    for (TMOPActionItem *actionItem in _itemsArray) {
+        actionItem.contentView.alpha = (actionItem.alphaBlock) ? actionItem.alphaBlock(actionItem.contentView.alpha, self) : 0;
+        actionItem.contentView.layer.transform = (actionItem.actionBlock) ? actionItem.actionBlock(transform, self) : transform;
         
-        
-        //transform = CATransform3DTranslate(transform, _tmpItem.startPosition, 0.0f, 0.0f);
-        _tmpItem.layer.transform = _tmpItem.action(transform, self);
-    //}
-    
-    
+        actionItem.contentView.userInteractionEnabled = NO;
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -231,14 +242,96 @@
             CGFloat translation = ([panGesture translationInView:self].x) - _previousLocation;
             CGFloat factor = 1.0f;
             _previousLocation = [panGesture translationInView:self].x;
-            //_startVelocity = -[panGesture velocityInView:self].x * factor * _scrollSpeed / _itemWidth;
+            _velocity = -[panGesture velocityInView:self].x * factor * _scrollSpeed / [self windowWidth];
             //_scrollOffset -= translation * factor * _offsetMultiplier / _itemWidth;
             _positionMark -= translation;
             NSLog(@"_positionMark = %f", _positionMark);
+            [self disableAnimation];
             [self didScroll];
+            [self enableAnimation];
         }
     }
 }
 
+- (CGFloat) scrollOffset
+{
+    return _positionMark / [self windowWidth];
+}
+
+- (CGFloat) contentWidth
+{
+    return _numberOfPage * [self windowWidth];
+}
+
+#pragma mark - 
+
+- (CGFloat)decelerationDistance
+{
+    static CGFloat decelerationRate = 0.95f;
+    CGFloat acceleration = -_velocity * 30.0f * (1.0f - decelerationRate);
+    return -powf(_velocity, 2.0f) / (2.0f * acceleration);
+}
+
+- (BOOL)shouldDecelerate
+{
+    return (fabsf(_velocity) > 2.0) &&
+    (fabsf([self decelerationDistance]) > 0.1);
+}
+
+- (BOOL)shouldScroll
+{
+#if 1
+    return YES;
+#else
+    
+    return (fabsf(_velocity) > 2.0) &&
+    (fabsf(_scrollOffset - self.currentItemIndex) > 0.1);
+#endif
+}
+
+- (void)startDecelerating
+{
+    CGFloat distance = [self decelerationDistance];
+    _startOffset = [self scrollOffset];
+    _endOffset = _startOffset + distance;
+    if (_statusFlag.paging)
+    {
+        if (distance > 0.0f)
+        {
+            _endOffset = ceilf(_endOffset);
+        }
+        else
+        {
+            _endOffset = floorf(_endOffset);
+        }
+    }
+
+    distance = _endOffset - _startOffset;
+    
+    if (_statusFlag.oneWindowEachPan && _statusFlag.paging) {
+        if (distance > 1) {
+            _endOffset -= 1.0 * floorf(distance);
+            distance = _endOffset - _startOffset;
+        }
+        else if (distance < -1.0) {
+            _endOffset -= 1.0 * ceilf(distance);
+            distance = _endOffset - _startOffset;
+        }
+    }
+    
+    _startTime = CACurrentMediaTime();
+    _scrollDuration = fabsf(distance) / fabsf(0.5f * _velocity);
+    
+    if (distance != 0.0f)
+    {
+        _statusFlag.decelerating = YES;
+        [self startAnimation];
+    }
+}
+
+- (CGFloat)easeInOut:(CGFloat)time
+{
+    return (time < 0.5f)? 0.5f * powf(time * 2.0f, 3.0f): 0.5f * powf(time * 2.0f - 2.0f, 3.0f) + 1.0f;
+}
 
 @end
