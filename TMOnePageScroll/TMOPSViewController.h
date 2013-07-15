@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class TMOnePageView;
 @interface TMOPSViewController : UIViewController
 
 @end

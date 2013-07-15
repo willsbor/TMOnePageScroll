@@ -8,6 +8,8 @@
 
 #import "TMOPSViewController.h"
 
+#import "TMOnePageView.h"
+
 @interface TMOPSViewController ()
 
 @end

@@ -23,6 +23,11 @@
 		AB932FBA179281D500FB33E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932F95179281D500FB33E2 /* Foundation.framework */; };
 		AB932FC2179281D500FB33E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB932FC0179281D500FB33E2 /* InfoPlist.strings */; };
 		AB932FC5179281D500FB33E2 /* TMOnePageScrollTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FC4179281D500FB33E2 /* TMOnePageScrollTests.m */; };
+		AB932FD11792855600FB33E2 /* TMOnePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FD01792855600FB33E2 /* TMOnePageView.m */; };
+		AB932FD31793A71200FB33E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB932FD21793A71200FB33E2 /* QuartzCore.framework */; };
+		AB932FD61793A78E00FB33E2 /* TMOPActionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AB932FD51793A78E00FB33E2 /* TMOPActionItem.m */; };
+		AB932FDA1793CFDD00FB33E2 /* teach_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AB932FD81793CFDD00FB33E2 /* teach_circle.png */; };
+		AB932FDB1793CFDD00FB33E2 /* teach_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB932FD91793CFDD00FB33E2 /* teach_circle@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,13 @@
 		AB932FC1179281D500FB33E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB932FC3179281D500FB33E2 /* TMOnePageScrollTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMOnePageScrollTests.h; sourceTree = "<group>"; };
 		AB932FC4179281D500FB33E2 /* TMOnePageScrollTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMOnePageScrollTests.m; sourceTree = "<group>"; };
+		AB932FCF1792855600FB33E2 /* TMOnePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOnePageView.h; sourceTree = "<group>"; };
+		AB932FD01792855600FB33E2 /* TMOnePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOnePageView.m; sourceTree = "<group>"; };
+		AB932FD21793A71200FB33E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AB932FD41793A78E00FB33E2 /* TMOPActionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOPActionItem.h; sourceTree = "<group>"; };
+		AB932FD51793A78E00FB33E2 /* TMOPActionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOPActionItem.m; sourceTree = "<group>"; };
+		AB932FD81793CFDD00FB33E2 /* teach_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teach_circle.png; sourceTree = "<group>"; };
+		AB932FD91793CFDD00FB33E2 /* teach_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "teach_circle@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB932FD31793A71200FB33E2 /* QuartzCore.framework in Frameworks */,
 				AB932F94179281D500FB33E2 /* UIKit.framework in Frameworks */,
 				AB932F96179281D500FB33E2 /* Foundation.framework in Frameworks */,
 				AB932F98179281D500FB33E2 /* CoreGraphics.framework in Frameworks */,
@@ -87,6 +100,7 @@
 		AB932F87179281D500FB33E2 = {
 			isa = PBXGroup;
 			children = (
+				AB932FD21793A71200FB33E2 /* QuartzCore.framework */,
 				AB932F99179281D500FB33E2 /* TMOnePageScroll */,
 				AB932FBD179281D500FB33E2 /* TMOnePageScrollTests */,
 				AB932F92179281D500FB33E2 /* Frameworks */,
@@ -117,6 +131,8 @@
 		AB932F99179281D500FB33E2 /* TMOnePageScroll */ = {
 			isa = PBXGroup;
 			children = (
+				AB932FD71793CFAF00FB33E2 /* resource */,
+				AB932FCE1792832B00FB33E2 /* Library */,
 				AB932FA2179281D500FB33E2 /* TMOPSAppDelegate.h */,
 				AB932FA3179281D500FB33E2 /* TMOPSAppDelegate.m */,
 				AB932FAB179281D500FB33E2 /* MainStoryboard.storyboard */,
@@ -158,6 +174,26 @@
 				AB932FC0179281D500FB33E2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB932FCE1792832B00FB33E2 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				AB932FCF1792855600FB33E2 /* TMOnePageView.h */,
+				AB932FD01792855600FB33E2 /* TMOnePageView.m */,
+				AB932FD41793A78E00FB33E2 /* TMOPActionItem.h */,
+				AB932FD51793A78E00FB33E2 /* TMOPActionItem.m */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		AB932FD71793CFAF00FB33E2 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				AB932FD81793CFDD00FB33E2 /* teach_circle.png */,
+				AB932FD91793CFDD00FB33E2 /* teach_circle@2x.png */,
+			);
+			path = resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +273,8 @@
 				AB932FA8179281D500FB33E2 /* Default@2x.png in Resources */,
 				AB932FAA179281D500FB33E2 /* Default-568h@2x.png in Resources */,
 				AB932FAD179281D500FB33E2 /* MainStoryboard.storyboard in Resources */,
+				AB932FDA1793CFDD00FB33E2 /* teach_circle.png in Resources */,
+				AB932FDB1793CFDD00FB33E2 /* teach_circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +312,8 @@
 				AB932FA0179281D500FB33E2 /* main.m in Sources */,
 				AB932FA4179281D500FB33E2 /* TMOPSAppDelegate.m in Sources */,
 				AB932FB0179281D500FB33E2 /* TMOPSViewController.m in Sources */,
+				AB932FD11792855600FB33E2 /* TMOnePageView.m in Sources */,
+				AB932FD61793A78E00FB33E2 /* TMOPActionItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +388,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -372,7 +412,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -385,6 +425,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
 				INFOPLIST_FILE = "TMOnePageScroll/TMOnePageScroll-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -396,6 +437,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TMOnePageScroll/TMOnePageScroll-Prefix.pch";
 				INFOPLIST_FILE = "TMOnePageScroll/TMOnePageScroll-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
