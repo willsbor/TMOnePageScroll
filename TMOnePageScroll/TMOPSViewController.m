@@ -11,11 +11,51 @@
 #import "TMOnePageView.h"
 #import "TMOPActionItem.h"
 
-@interface TMOPSViewController ()
-
+@interface TMOPSViewController () <TMOnePageViewDelegate>
+{
+    UILabel *_alertNoteText;
+}
 @end
 
 @implementation TMOPSViewController
+
+- (void) onePageViewCurrentPageIndexDidChange:(TMOnePageView *)aOnePageView
+{
+    [self setAlertNoteBy:aOnePageView.currentPageIndex];
+}
+
+- (void) setAlertNoteBy:(NSInteger)aCurrentIndex
+{
+    switch (aCurrentIndex) {
+        case 0:
+            _alertNoteText.text = [NSString stringWithFormat:@"點擊打開延伸功能"];
+            break;
+        case 1:
+            _alertNoteText.text = [NSString stringWithFormat:@"意見回饋及快取地圖"];
+            break;
+        case 2:
+            _alertNoteText.text = [NSString stringWithFormat:@"拖拉設定起終點"];
+            break;
+        case 3:
+            _alertNoteText.text = [NSString stringWithFormat:@"長按起終點可以調整位置"];
+            break;
+        case 4:
+            _alertNoteText.text = [NSString stringWithFormat:@"點擊後可以輸出地圖"];
+            break;
+        case 5:
+            _alertNoteText.text = [NSString stringWithFormat:@"可儲存或分享"];
+            break;
+        case 6:
+            _alertNoteText.text = [NSString stringWithFormat:@"旋轉手機查看街景"];
+            break;
+        case 7:
+            _alertNoteText.text = [NSString stringWithFormat:@"點選箭頭可以前進後退"];
+            break;
+            
+        default:
+            break;
+    }
+}
 
 - (IBAction)clickCircle0Btn:(id)sender
 {
@@ -32,11 +72,16 @@
     [self.onePageView scrollToPageAtIndex:5 animated:YES];
 }
 
+- (IBAction)clickCloseBtn:(id)sender
+{
+    ///...
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    self.onePageView.delegate = self;
     self.onePageView.numberOfPage = 8;
     
     UIView *color = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 50, 50))];
@@ -426,9 +471,23 @@
     alertText.minimumFontSize = 7.0;
     alertText.font = [UIFont systemFontOfSize:15.0];
     alertText.backgroundColor = [UIColor clearColor];
+    alertText.numberOfLines = 3;
+    _alertNoteText = alertText;
+    [self setAlertNoteBy:self.onePageView.currentPageIndex];
     [self.onePageView actionItemWithView:alertText AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
-        alertText.text = [NSString stringWithFormat:@"%d", self.onePageView.currentPageIndex];
         return CATransform3DTranslate(transform, relativePosition + 10, 412.0f, 0.0f);
+    } andAlpha:^CGFloat(CGFloat currentAlpha, CGFloat relativePosition) {
+        return 1.0;
+    }];
+    
+    
+    UIImage *x5 = [UIImage imageNamed:@"teach_x"];
+    UIButton *closeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [closeBtn setImage:x5 forState:(UIControlStateNormal)];
+    closeBtn.frame = CGRectMake(0, 0, 44, 44);
+    [closeBtn addTarget:self action:@selector(clickCloseBtn:) forControlEvents:(UIControlEventTouchDown)];
+    [self.onePageView actionItemWithView:closeBtn AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
+        return CATransform3DTranslate(transform, relativePosition + 283.0f, 389.0f, 0.0f);
     } andAlpha:^CGFloat(CGFloat currentAlpha, CGFloat relativePosition) {
         return 1.0;
     }];

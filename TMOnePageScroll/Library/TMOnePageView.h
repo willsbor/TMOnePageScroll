@@ -26,7 +26,7 @@
 #import "TMOPActionItem.h"
 
 @protocol TMOnePageViewDelegate <NSObject>
-
+@optional
 - (void) onePageViewCurrentPageIndexDidChange:(TMOnePageView *)aOnePageView;
 
 @end
