@@ -37,4 +37,6 @@
 - (void) addActionItem:(TMOPActionItem *)aActionItem;
 - (NSInteger) currentItemIndex;
 
+- (CGFloat) markPointOfPage:(NSInteger)aPageIndex;
+
 @end

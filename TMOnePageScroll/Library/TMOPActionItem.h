@@ -26,12 +26,12 @@
 #import <QuartzCore/QuartzCore.h>
 @class TMOnePageView;
 
-typedef CATransform3D (^TMOPActionBlock)(CATransform3D transform, TMOnePageView *onePageView);
-typedef CGFloat (^TMOPAlphaBlock)(CGFloat currentAlpha, TMOnePageView *onePageView);
+typedef CATransform3D (^TMOPActionBlock)(CATransform3D transform, CGFloat relativePosition);
+typedef CGFloat (^TMOPAlphaBlock)(CGFloat currentAlpha, CGFloat relativePosition);
 
 @interface TMOPActionItem : NSObject
 
-@property (nonatomic, readonly) NSUInteger pageIndex;
+@property (nonatomic, readonly) NSInteger pageIndex;
 @property (nonatomic, readonly) UIView *contentView;
 
 @property (nonatomic, readonly) TMOPActionBlock actionBlock;

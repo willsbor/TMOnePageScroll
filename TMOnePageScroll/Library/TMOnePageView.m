@@ -124,6 +124,11 @@
     return self.frame.size.width;
 }
 
+- (CGFloat) markPointOfPage:(NSInteger)aPageIndex
+{
+    return [self windowWidth] * aPageIndex;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -308,11 +313,15 @@
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = _perspective;
     transform = CATransform3DTranslate(transform, -_viewpointOffset.width, -_viewpointOffset.height, 0.0f);
-    transform = CATransform3DTranslate(transform, -_positionMark, 0.0f, 0.0f);
     
     for (TMOPActionItem *actionItem in _itemsArray) {
-        actionItem.contentView.alpha = (actionItem.alphaBlock) ? actionItem.alphaBlock(actionItem.contentView.alpha, self) : 0;
-        actionItem.contentView.layer.transform = (actionItem.actionBlock) ? actionItem.actionBlock(transform, self) : transform;
+        //actionItem.contentView.alpha = (actionItem.alphaBlock) ? actionItem.alphaBlock(actionItem.contentView.alpha, self) : 0;
+        //actionItem.contentView.layer.transform = (actionItem.actionBlock) ? actionItem.actionBlock(transform, self) : transform;
+        CGFloat relativePosition = self.positionMark - actionItem.pageIndex * [self windowWidth];
+        CATransform3D subtempTransform = CATransform3DTranslate(transform, -relativePosition, 0.0f, 0.0f);
+        actionItem.contentView.alpha = (actionItem.alphaBlock) ? actionItem.alphaBlock(actionItem.contentView.alpha, relativePosition) : 0;
+        actionItem.contentView.layer.transform = (actionItem.actionBlock) ? actionItem.actionBlock(subtempTransform, relativePosition) : subtempTransform;
+        
         
         actionItem.contentView.userInteractionEnabled = NO;
     }
@@ -484,6 +493,15 @@
         }
     }
 
+    if (_statusFlag.bounces)
+    {
+        _endOffset = fmaxf(-_bounceDistance, fminf(_numberOfPage - 1.0f + _bounceDistance, _endOffset));
+    }
+    else
+    {
+        _endOffset = fminf(fmaxf(0.0f, _endOffset), (CGFloat)_numberOfPage - 1.0f);
+    }
+    
     distance = _endOffset - _startOffset;
     
     if (_statusFlag.oneWindowEachPan && _statusFlag.paging) {
