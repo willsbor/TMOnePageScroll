@@ -10,5 +10,6 @@
 
 @class TMOnePageView;
 @interface TMOPSViewController : UIViewController
+@property (weak, nonatomic) IBOutlet TMOnePageView *onePageView;
 
 @end
