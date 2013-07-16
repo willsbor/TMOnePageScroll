@@ -34,4 +34,6 @@
 
 - (TMOPActionItem *) actionItemWithView:(UIView *)aContentView;
 
+- (NSInteger) currentItemIndex;
+
 @end

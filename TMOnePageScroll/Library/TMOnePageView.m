@@ -36,10 +36,18 @@
     CGFloat _previousLocation;
     int32_t _animationTrigCount;
     NSTimer *_animationTimer;
+    
     CGFloat _perspective;
     CGSize _viewpointOffset;
+    
     CGFloat _velocity;
     CGFloat _scrollSpeed;
+    CGFloat _bounceDistance;
+    
+    NSInteger _previousPageIndex;
+    
+    CGFloat _toggle;
+    NSTimeInterval _toggleTime;
     
     CGFloat _startOffset;
     CGFloat _endOffset;
@@ -51,9 +59,11 @@
     struct {
         unsigned int scrolling:1;
         unsigned int decelerating:1;
-        
+        unsigned int dragging:1;
+
         unsigned int paging:1;
         unsigned int oneWindowEachPan:1;
+        unsigned int bounces;
     } _statusFlag;
 }
 
@@ -85,9 +95,11 @@
     _viewpointOffset = CGSizeZero;
     _numberOfPage = 1.0;
     _scrollSpeed = 1.0;
+    _bounceDistance = 0.5f;
     _statusFlag.paging = YES;
     _statusFlag.oneWindowEachPan = YES;
-    _statusFlag.scrolling = _statusFlag.decelerating = NO;
+    _statusFlag.scrolling = _statusFlag.decelerating = _statusFlag.dragging = NO;
+    _statusFlag.bounces = YES;
     
     _itemsArray = [[NSMutableArray alloc] init];
     
@@ -125,6 +137,11 @@
         [self setUp];
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    _mainContentView.frame = self.bounds;
 }
 
 
@@ -172,10 +189,71 @@
     [self disableAnimation];
     NSTimeInterval currentTime = CACurrentMediaTime();
     
+    if (_toggle != 0.0f)
+    {
+        NSTimeInterval toggleDuration = _velocity? fminf(1.0, fmaxf(0.0, 1.0 / fabsf(_velocity))): 1.0;
+        toggleDuration = 0.2 + (0.4 - 0.2) * toggleDuration;
+        NSTimeInterval time = fminf(1.0f, (currentTime - _toggleTime) / toggleDuration);
+        CGFloat delta = [self easeInOut:time];
+        _toggle = (_toggle < 0.0f)? (delta - 1.0f): (1.0f - delta);
+        [self didScroll];
+    }
+    
     if (_statusFlag.scrolling)
     {
+        NSTimeInterval time = fminf(1.0f, (currentTime - _startTime) / _scrollDuration);
+        CGFloat delta = [self easeInOut:time];
+        _positionMark = (_startOffset + (_endOffset - _startOffset) * delta) * [self windowWidth];
         [self didScroll];
-
+        if (time == 1.0f)
+        {
+            _statusFlag.scrolling = NO;
+        }
+    }
+    else if (_statusFlag.decelerating)
+    {
+        CGFloat time = fminf(_scrollDuration, currentTime - _startTime);
+        CGFloat acceleration = -_velocity/_scrollDuration;
+        CGFloat distance = _velocity * time + 0.5f * acceleration * powf(time, 2.0f);
+        _positionMark = (_startOffset + distance) * [self windowWidth];
+        
+        [self didScroll];
+        if (time == (CGFloat)_scrollDuration)
+        {
+            _statusFlag.decelerating = NO;
+            
+            if (_statusFlag.paging || ([self scrollOffset] - [self safeScrollOffset]) != 0.0f)
+            {
+                if (fabsf([self scrollOffset] - self.currentItemIndex) < 0.01f)
+                {
+                    //call scroll to trigger events for legacy support reasons
+                    //even though technically we don't need to scroll at all
+                    [self scrollToPageAtIndex:self.currentItemIndex duration:0.01];
+                }
+                else
+                {
+                    [self scrollToPageAtIndex:self.currentItemIndex animated:YES];
+                }
+            }
+            else
+            {
+                CGFloat difference = (CGFloat)self.currentItemIndex - [self scrollOffset];
+                if (difference > 0.5)
+                {
+                    difference = difference - 1.0f;
+                }
+                else if (difference < -0.5)
+                {
+                    difference = 1.0 + difference;
+                }
+                _toggleTime = currentTime - 0.4f * fabsf(difference);
+                _toggle = fmaxf(-1.0f, fminf(1.0f, -difference));
+            }
+        }
+    }
+    else if (_toggle == 0.0f)
+    {
+        [self stopAnimation];
     }
     
     [self enableAnimation];
@@ -184,7 +262,40 @@
 - (void)didScroll
 {
     
+    if (!_statusFlag.bounces)
+    {
+        _positionMark = [self safeScrollOffset] * [self windowWidth];
+    }
+    else
+    {
+        CGFloat min = -_bounceDistance;
+        CGFloat max = fmaxf(_numberOfPage - 1, 0.0f) + _bounceDistance;
+        if ([self scrollOffset] < min)
+        {
+            _positionMark = min * [self windowWidth];
+            _velocity = 0.0f;
+        }
+        else if ([self scrollOffset] > max)
+        {
+            _positionMark = max * [self windowWidth];
+            _velocity = 0.0f;
+        }
+    }
+    
+    NSInteger currentIndex = roundf([self scrollOffset]);
+    NSInteger difference = currentIndex - _previousPageIndex;
+    if (difference)
+    {
+        _toggleTime = CACurrentMediaTime();
+        _toggle = fmaxf(-1.0f, fminf(1.0f, -(CGFloat)difference));
+        
+        [self startAnimation];
+    }
+    
     [self updateAllItems];
+    
+
+    _previousPageIndex = currentIndex;
     
 }
 
@@ -223,7 +334,9 @@
         case UIGestureRecognizerStateBegan:
         {
             NSLog(@"UIGestureRecognizerStateBegan");
-            _statusFlag.scrolling = YES;
+            _statusFlag.scrolling = NO;
+            _statusFlag.dragging = YES;
+            _statusFlag.decelerating = NO;
             _previousLocation = [panGesture translationInView:self].x;
             //[self startAnimation];
             break;
@@ -233,7 +346,31 @@
         {
             NSLog(@"UIGestureRecognizerStateEnded & UIGestureRecognizerStateCancelled");
             //[self stopAnimation];
-            _statusFlag.scrolling = NO;
+            _statusFlag.dragging = NO;
+            
+            if ([self shouldDecelerate])
+            {
+                [self startDecelerating];
+            }
+            
+            if (!_statusFlag.decelerating
+                && (_statusFlag.paging || ([self scrollOffset] - [self safeScrollOffset]) != 0.0f))
+            {
+                if (fabsf([self scrollOffset] - self.currentItemIndex) < 0.01f)
+                {
+                    [self scrollToPageAtIndex:self.currentItemIndex duration:0.01];
+                }
+                else if ([self shouldScroll])
+                {
+                    NSInteger direction = (int)(_velocity / fabsf(_velocity));
+                    [self scrollToPageAtIndex:self.currentItemIndex + direction animated:YES];
+                }
+                else
+                {
+                    [self scrollToPageAtIndex:self.currentItemIndex animated:YES];
+                }
+            }
+
             break;
         }
         default:
@@ -243,7 +380,7 @@
             CGFloat factor = 1.0f;
             _previousLocation = [panGesture translationInView:self].x;
             _velocity = -[panGesture velocityInView:self].x * factor * _scrollSpeed / [self windowWidth];
-            //_scrollOffset -= translation * factor * _offsetMultiplier / _itemWidth;
+
             _positionMark -= translation;
             NSLog(@"_positionMark = %f", _positionMark);
             [self disableAnimation];
@@ -253,14 +390,59 @@
     }
 }
 
+- (NSInteger) currentItemIndex
+{
+    return fminf(fmaxf(0.0f, roundf([self scrollOffset])), (CGFloat)_numberOfPage - 1.0f);
+}
+
 - (CGFloat) scrollOffset
 {
     return _positionMark / [self windowWidth];
 }
 
+- (CGFloat) safeScrollOffset
+{
+    return fminf(fmaxf(0.0f, [self scrollOffset]), (CGFloat)_numberOfPage - 1.0f);
+}
+
 - (CGFloat) contentWidth
 {
     return _numberOfPage * [self windowWidth];
+}
+
+- (void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated
+{
+    [self scrollToPageAtIndex:index duration:animated ? 0.3: 0];
+}
+
+- (void)scrollToPageAtIndex:(NSInteger)index duration:(NSTimeInterval)duration
+{
+    [self scrollToOffset:index duration:duration];
+}
+
+- (void)scrollByOffset:(CGFloat)offset duration:(NSTimeInterval)duration
+{
+    if (duration > 0.0)
+    {
+        _statusFlag.decelerating = NO;
+        _statusFlag.scrolling = YES;
+        _startTime = CACurrentMediaTime();
+        _startOffset = [self scrollOffset];
+        _scrollDuration = duration;
+        _previousPageIndex = roundf([self scrollOffset]);
+        _endOffset = _startOffset + offset;
+
+        [self startAnimation];
+    }
+    else
+    {
+        _positionMark += offset * [self windowWidth];
+    }
+}
+
+- (void)scrollToOffset:(CGFloat)offset duration:(NSTimeInterval)duration
+{
+    [self scrollByOffset:offset - [self scrollOffset] duration:duration];
 }
 
 #pragma mark - 
@@ -280,13 +462,8 @@
 
 - (BOOL)shouldScroll
 {
-#if 1
-    return YES;
-#else
-    
-    return (fabsf(_velocity) > 2.0) &&
-    (fabsf(_scrollOffset - self.currentItemIndex) > 0.1);
-#endif
+    return (fabsf(_velocity) > 2.0)
+    && (fabsf([self scrollOffset] - self.currentItemIndex) > 0.1);
 }
 
 - (void)startDecelerating

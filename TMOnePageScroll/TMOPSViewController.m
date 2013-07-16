@@ -22,7 +22,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.onePageView.numberOfPage = 3;
+    self.onePageView.numberOfPage = 8;
     
     UIView *color = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 50, 50))];
     color.backgroundColor = [UIColor blueColor];
@@ -348,14 +348,14 @@
     TMOPActionItem *bg6Action = [self.onePageView actionItemWithView:bg6];
     [bg6Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         
-        if (onePageView.positionMark < onePageView.windowWidth * 7) {
+        //if (onePageView.positionMark < onePageView.windowWidth * 7) {
             return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 7, 0.0f, 0.0f), 0, 0, 0.0, 1.0);
-        }
-        else if (onePageView.positionMark < onePageView.windowWidth * 8) {
-            return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.positionMark, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
-        }
-        else
-            return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 8, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
+        //}
+        //else if (onePageView.positionMark < onePageView.windowWidth * 8) {
+        //    return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.positionMark, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
+        //}
+        //else
+        //    return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 8, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
         
     }];
     [bg6Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
@@ -367,6 +367,64 @@
         }
         else
             return 0.0;
+    }];
+    
+    UIImageView *noteAlert = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_board"]];
+    TMOPActionItem *noteAlertAction = [self.onePageView actionItemWithView:noteAlert];
+    [noteAlertAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        return CATransform3DTranslate(transform, onePageView.positionMark, 397.0f, 0.0f);
+    }];
+    [noteAlertAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+        return 1.0;
+    }];
+    
+    int dot_space = 12;
+    CGSize dotSize = CGSizeMake(2, 2);
+    UIView *dotContanter = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, (self.onePageView.numberOfPage - 1) * dot_space + dotSize.width, dotSize.height))];
+    for (int i = 0; i < self.onePageView.numberOfPage; ++i) {
+        /// 12 = 2 + 10;
+        UIImageView *dotnotImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot_not"]];
+        f = dotnotImg.frame;
+        f.origin.x = i * dot_space;
+        dotnotImg.frame = f;
+        [dotContanter addSubview:dotnotImg];
+    }
+    
+    TMOPActionItem *dotContanterAction = [self.onePageView actionItemWithView:dotContanter];
+    [dotContanterAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        return CATransform3DTranslate(transform, onePageView.positionMark + 160.0 - dotContanter.frame.size.width / 2, 462.0f, 0.0f);
+    }];
+    [dotContanterAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+        return 0.3;
+    }];
+    
+    UIImageView *dotImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+    TMOPActionItem *dotImgAction = [self.onePageView actionItemWithView:dotImg];
+    [dotImgAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        
+        CGFloat nowX = onePageView.positionMark + 160.0 - dotContanter.frame.size.width / 2;
+        nowX += onePageView.currentItemIndex * dot_space;
+        return CATransform3DTranslate(transform, nowX, 462.0f, 0.0f);
+    }];
+    [dotImgAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+        return 1.0;
+    }];
+    
+    UILabel *alertText = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 300, 50))];
+    alertText.textColor = [UIColor whiteColor];
+    alertText.textAlignment = UITextAlignmentCenter;
+    alertText.minimumScaleFactor = 0.5;
+    alertText.adjustsFontSizeToFitWidth = YES;
+    alertText.minimumFontSize = 7.0;
+    alertText.font = [UIFont systemFontOfSize:15.0];
+    alertText.backgroundColor = [UIColor clearColor];
+    TMOPActionItem *alertTextAction = [self.onePageView actionItemWithView:alertText];
+    [alertTextAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        alertText.text = [NSString stringWithFormat:@"%d", onePageView.currentItemIndex];
+        return CATransform3DTranslate(transform, onePageView.positionMark + 10, 412.0f, 0.0f);
+    }];
+    [alertTextAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+        return 1.0;
     }];
 }
 
