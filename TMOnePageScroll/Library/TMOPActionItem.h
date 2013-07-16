@@ -33,6 +33,7 @@ typedef CGFloat (^TMOPAlphaBlock)(CGFloat currentAlpha, CGFloat relativePosition
 
 @property (nonatomic, readonly) NSInteger pageIndex;
 @property (nonatomic, readonly) UIView *contentView;
+@property (nonatomic, readonly) UIView *inputView;
 
 @property (nonatomic, readonly) TMOPActionBlock actionBlock;
 @property (nonatomic, readonly) TMOPAlphaBlock alphaBlock;

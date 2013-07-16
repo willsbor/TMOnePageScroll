@@ -34,6 +34,7 @@
 @synthesize alphaBlock = _alphaBlock;
 @synthesize pageIndex = _pageIndex;
 @synthesize contentView = _contentView;
+@synthesize inputView = _inputView;
 
 + (TMOPActionItem *) actionItemWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock
 {
@@ -60,6 +61,7 @@
         [baseView addSubview:aContentView];
         baseView.alpha = 0.0;
         _contentView = baseView;
+        _inputView = aContentView;
     }
     return self;
 }

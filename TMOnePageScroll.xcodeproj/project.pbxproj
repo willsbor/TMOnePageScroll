@@ -632,6 +632,7 @@
 				AB932FCA179281D500FB33E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB932FCB179281D500FB33E2 /* Build configuration list for PBXNativeTarget "TMOnePageScrollTests" */ = {
 			isa = XCConfigurationList;
@@ -640,6 +641,7 @@
 				AB932FCD179281D500FB33E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

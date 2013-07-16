@@ -25,18 +25,28 @@
 #import <UIKit/UIKit.h>
 #import "TMOPActionItem.h"
 
+@protocol TMOnePageViewDelegate <NSObject>
+
+- (void) onePageViewCurrentPageIndexDidChange:(TMOnePageView *)aOnePageView;
+
+@end
+
 @interface TMOnePageView : UIView
 
-@property (nonatomic) CGFloat positionMark;
+@property (nonatomic, weak) IBOutlet id<TMOnePageViewDelegate> delegate;
+@property (nonatomic, readonly) CGFloat positionMark;
 @property (nonatomic, readonly) CGFloat contentWidth;
-@property (nonatomic) CGFloat windowWidth;
+@property (nonatomic, readonly) CGFloat windowWidth;
 @property (nonatomic) NSUInteger numberOfPage;
 
 - (TMOPActionItem *) actionItemWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock;
 
 - (void) addActionItem:(TMOPActionItem *)aActionItem;
-- (NSInteger) currentItemIndex;
+- (NSInteger) currentPageIndex;
 
 - (CGFloat) markPointOfPage:(NSInteger)aPageIndex;
+
+- (void)scrollToPageAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)scrollToPageAtIndex:(NSInteger)index duration:(NSTimeInterval)duration;
 
 @end

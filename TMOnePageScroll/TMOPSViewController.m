@@ -17,6 +17,21 @@
 
 @implementation TMOPSViewController
 
+- (IBAction)clickCircle0Btn:(id)sender
+{
+    [self.onePageView scrollToPageAtIndex:1 animated:YES];
+}
+
+- (IBAction)clickBlueflag2Btn:(id)sender
+{
+    [self.onePageView scrollToPageAtIndex:3 duration:2.5];
+}
+
+- (IBAction)clickCircle4Btn:(id)sender
+{
+    [self.onePageView scrollToPageAtIndex:5 animated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -76,8 +91,13 @@
             return 1.0;
     }];
     
-    UIImageView *circle1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_highlight"]];
-    [self.onePageView actionItemWithView:circle1 AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
+
+    UIImage *circle = [UIImage imageNamed:@"teach_highlight"];
+    UIButton *circleBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [circleBtn setImage:circle forState:(UIControlStateNormal)];
+    circleBtn.bounds = CGRectMake(0, 0, circle.size.width, circle.size.height);
+    [circleBtn addTarget:self action:@selector(clickCircle0Btn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.onePageView actionItemWithView:circleBtn AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
         if (relativePosition < 0) {
             return CATransform3DTranslate(transform, 27.0, 44.0f, 0.0f);
         } else
@@ -114,10 +134,17 @@
             return 0.0;
     }];
     
-    UIImageView *circle3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_highlight"]];
+    
+    UIImage *circle3 = [UIImage imageNamed:@"teach_highlight"];
+    UIButton *circle3Btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [circle3Btn setImage:circle3 forState:(UIControlStateNormal)];
+    circle3Btn.frame = CGRectMake(0, 0, circle3.size.width, circle3.size.height);
+    [circle3Btn addTarget:self action:@selector(clickBlueflag2Btn:) forControlEvents:(UIControlEventTouchDown)];
+    
     UIImageView *arrow3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_arrow"]];
+    
     UIView *action3 = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 90, 130))];
-    [action3 addSubview:circle3];
+    [action3 addSubview:circle3Btn];
     CGRect f = arrow3.frame;
     f.origin = CGPointMake(36, 66);
     arrow3.frame = f;
@@ -149,32 +176,37 @@
     }];
 
     
-    UIImageView *blueflag3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueflag"]];
-    [self.onePageView actionItemWithView:blueflag3 AtPage:2 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
+    UIImageView *blueflag3Image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueflag"]];
+    [self.onePageView actionItemWithView:blueflag3Image AtPage:2 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
+        
         if (relativePosition < 0) {
-            return CATransform3DTranslate(transform, 48.0, 127.0f, 0.0f);
+            transform = CATransform3DTranslate(transform, 48.0, 127.0f, 0.0f) ;
+            
         }
         else if (relativePosition < self.onePageView.windowWidth * .1) {
-            return CATransform3DTranslate(transform, relativePosition + 48.0, 127.0f, 0.0f);
+            transform = CATransform3DTranslate(transform, relativePosition + 48.0, 127.0f, 0.0f);
         }
         else if (relativePosition < self.onePageView.windowWidth * .5) {/// 160  280
             CGFloat ratio = (relativePosition - self.onePageView.windowWidth * .1) / (self.onePageView.windowWidth * 0.4);
-            return CATransform3DTranslate(transform,
+            transform = CATransform3DTranslate(transform,
                                           relativePosition + ratio * 112.0 + 48.0,
                                           ratio * 153.0 + 127.0f,
                                           0.0f);
         }
         else if (relativePosition < self.onePageView.windowWidth) {
-            return CATransform3DTranslate(transform, relativePosition + 160.0, 280.0f, 0.0f);
+            transform = CATransform3DTranslate(transform, relativePosition + 160.0, 280.0f, 0.0f);
         }
-        else
-            return CATransform3DTranslate(transform, self.onePageView.windowWidth + 160.0, 280.0f, 0.0f);
+        else {
+            transform = CATransform3DTranslate(transform, self.onePageView.windowWidth + 160.0, 280.0f, 0.0f);
+        }
+        transform = CATransform3DScale(transform, 2.0, 2.0, 1.0);
+        return transform;
     } andAlpha:^CGFloat(CGFloat currentAlpha, CGFloat relativePosition) {
         if (relativePosition < 0) {
             return 0;
         }
-        else if (relativePosition <= self.onePageView.windowWidth * .5) {
-            return 1.0 * (relativePosition - 0) / (self.onePageView.windowWidth * 0.5);
+        else if (relativePosition <= self.onePageView.windowWidth * .1) {
+            return 1.0 * (relativePosition - 0) / (self.onePageView.windowWidth * 0.1);
         }
         else if (relativePosition <= self.onePageView.windowWidth * .8) {
             return 1.0;
@@ -232,8 +264,12 @@
             return 0.0;
     }];
     
-    UIImageView *circle5 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_highlight"]];
-    [self.onePageView actionItemWithView:circle5 AtPage:4 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
+    UIImage *circle5 = [UIImage imageNamed:@"teach_highlight"];
+    UIButton *circle5Btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [circle5Btn setImage:circle5 forState:(UIControlStateNormal)];
+    circle5Btn.frame = CGRectMake(0, 0, circle5.size.width, circle5.size.height);
+    [circle5Btn addTarget:self action:@selector(clickCircle4Btn:) forControlEvents:(UIControlEventTouchDown)];
+    [self.onePageView actionItemWithView:circle5Btn AtPage:4 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
         if (relativePosition < 0) {
             return CATransform3DTranslate(transform, 239.0, 47.0f, 0.0f);
         }
@@ -375,7 +411,7 @@
     UIImageView *dotImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
     [self.onePageView actionItemWithView:dotImg AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
         CGFloat nowX = relativePosition + 160.0 - dotContanter.frame.size.width / 2;
-        nowX += self.onePageView.currentItemIndex * dot_space;
+        nowX += self.onePageView.currentPageIndex * dot_space;
         return CATransform3DTranslate(transform, nowX, 462.0f, 0.0f);
     } andAlpha:^CGFloat(CGFloat currentAlpha, CGFloat relativePosition) {
         return 1.0;
@@ -391,7 +427,7 @@
     alertText.font = [UIFont systemFontOfSize:15.0];
     alertText.backgroundColor = [UIColor clearColor];
     [self.onePageView actionItemWithView:alertText AtPage:0 withAction:^CATransform3D(CATransform3D transform, CGFloat relativePosition) {
-        alertText.text = [NSString stringWithFormat:@"%d", self.onePageView.currentItemIndex];
+        alertText.text = [NSString stringWithFormat:@"%d", self.onePageView.currentPageIndex];
         return CATransform3DTranslate(transform, relativePosition + 10, 412.0f, 0.0f);
     } andAlpha:^CGFloat(CGFloat currentAlpha, CGFloat relativePosition) {
         return 1.0;
