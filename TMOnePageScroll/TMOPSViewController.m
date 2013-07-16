@@ -30,15 +30,14 @@
     UIImageView *bg_menu_frame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg2_frame"]];
     UIImageView *menuItem = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg1"]];
     
-    TMOPActionItem *bgMenuAction = [self.onePageView actionItemWithView:bg_menu];
-    [bgMenuAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
-        if (onePageView.positionMark < onePageView.windowWidth) {
+    [self.onePageView actionItemWithView:bg_menu AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        if (onePageView.positionMark < 0) {
+            return CATransform3DTranslate(transform, 0, 0.0f, 0.0f);
+        } else if (onePageView.positionMark < onePageView.windowWidth) {
             return CATransform3DTranslate(transform, onePageView.positionMark, 0.0f, 0.0f);
         } else
             return CATransform3DTranslate(transform, onePageView.windowWidth, 0.0f, 0.0f);
-        
-    }];
-    [bgMenuAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark > onePageView.windowWidth * 2) {
             return 0.0;
         }
@@ -46,17 +45,15 @@
             return 1.0;
     }];
     
-    TMOPActionItem *menuItemAction = [self.onePageView actionItemWithView:menuItem];
-    [menuItemAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:menuItem AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth) {
-            
-            /// 246
-            return CATransform3DTranslate(transform, onePageView.positionMark + onePageView.positionMark * 203.0 / onePageView.windowWidth + 43.0, 58.0f, 0.0f);
+            if (onePageView.positionMark < 0) {
+                return CATransform3DTranslate(transform, 43.0, 58.0f, 0.0f);
+            } else
+                return CATransform3DTranslate(transform, onePageView.positionMark + onePageView.positionMark * 203.0 / onePageView.windowWidth + 43.0, 58.0f, 0.0f);
         } else
             return CATransform3DTranslate(transform, onePageView.windowWidth + 246.0, 58.0f, 0.0f);
-        
-    }];
-    [menuItemAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark > onePageView.windowWidth * 2) {
             return 0.0;
         }
@@ -64,15 +61,14 @@
             return 1.0;
     }];
     
-    TMOPActionItem *bgMenuFrameAction = [self.onePageView actionItemWithView:bg_menu_frame];
-    [bgMenuFrameAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
-        if (onePageView.positionMark < onePageView.windowWidth) {
+    [self.onePageView actionItemWithView:bg_menu_frame AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        if (onePageView.positionMark < 0) {
+            return CATransform3DTranslate(transform, 0, 0.0f, 0.0f);
+        } else if (onePageView.positionMark < onePageView.windowWidth) {
             return CATransform3DTranslate(transform, onePageView.positionMark, 0.0f, 0.0f);
         } else
             return CATransform3DTranslate(transform, onePageView.windowWidth, 0.0f, 0.0f);
-        
-    }];
-    [bgMenuFrameAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark > onePageView.windowWidth * 2) {
             return 0.0;
         }
@@ -83,8 +79,7 @@
     /////////////////////
     
     UIImageView *bg3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg3"]];
-    TMOPActionItem *bg3Action = [self.onePageView actionItemWithView:bg3];
-    [bg3Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:bg3 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 2, 0.0f, 0.0f);
         }
@@ -93,9 +88,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 3, 0.0f, 0.0f);
-        
-    }];
-    [bg3Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark >= onePageView.windowWidth * 1
             && onePageView.positionMark <= onePageView.windowWidth * 4) {
             return 1.0;
@@ -112,8 +105,7 @@
     f.origin = CGPointMake(36, 66);
     arrow3.frame = f;
     [action3 addSubview:arrow3];
-    TMOPActionItem *circle3Action = [self.onePageView actionItemWithView:action3];
-    [circle3Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:action3 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 2 + 24.0, 112.0f, 0.0f);
         }
@@ -122,10 +114,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 3 + 24.0, 112.0f, 0.0f);
-        
-    }];
-    [circle3Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
-        
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 1.5) {
             return 0;
         }
@@ -141,10 +130,10 @@
         else
             return 0.0;
     }];
+
     
     UIImageView *blueflag3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blueflag"]];
-    TMOPActionItem *blueflag3Action = [self.onePageView actionItemWithView:blueflag3];
-    [blueflag3Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:blueflag3 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 2 + 48.0, 127.0f, 0.0f);
         }
@@ -163,10 +152,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 3 + 160.0, 280.0f, 0.0f);
-        
-    }];
-    [blueflag3Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
-        
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2) {
             return 0;
         }
@@ -184,8 +170,7 @@
     }];
     
     UIImageView *bg4 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg4"]];
-    TMOPActionItem *bg4Action = [self.onePageView actionItemWithView:bg4];
-    [bg4Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:bg4 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 2, 0.0f, 0.0f);
         }
@@ -194,9 +179,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 3, 0.0f, 0.0f);
-        
-    }];
-    [bg4Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 2.6) {
             return 0.0;
         }
@@ -212,8 +195,7 @@
     
     
     UIImageView *bg5 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg5"]];
-    TMOPActionItem *bg5Action = [self.onePageView actionItemWithView:bg5];
-    [bg5Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:bg5 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 4) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 4, 0.0f, 0.0f);
         }
@@ -222,9 +204,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 6, 0.0f, 0.0f);
-        
-    }];
-    [bg5Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 3) {
             return 0;
         }
@@ -236,8 +216,7 @@
     }];
     
     
-    TMOPActionItem *circle5Action = [self.onePageView actionItemWithView:circle3];
-    [circle5Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:circle3 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 4) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 4 + 239.0, 47.0f, 0.0f);
         }
@@ -246,9 +225,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 5 + 239.0, 47.0f, 0.0f);
-        
-    }];
-    [circle5Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 4) {
             return 0;
         }
@@ -263,8 +240,7 @@
     }];
     
     UIImageView *teachoutput = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_output.png"]];
-    TMOPActionItem *teachoutputAction = [self.onePageView actionItemWithView:teachoutput];
-    [teachoutputAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:teachoutput AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 4) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 4 + 43.0, 397.0f, 0.0f);
         }
@@ -287,9 +263,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 5 + 43.0, 397.0f, 0.0f);
-        
-    }];
-    [teachoutputAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 4.3) {
             return 0;
         }
@@ -317,8 +291,7 @@
     [rotateView addSubview:rotateAlert];
     
     
-    TMOPActionItem *rotateAction = [self.onePageView actionItemWithView:rotateView];
-    [rotateAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:rotateView AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 5) {
             return CATransform3DTranslate(transform, onePageView.windowWidth * 5 + 65.0f, 230.0f, 0.0f);
         }
@@ -327,9 +300,7 @@
         }
         else
             return CATransform3DTranslate(transform, onePageView.windowWidth * 6 + 65.0f, 230.0f, 0.0f);
-        
-    }];
-    [rotateAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 5) {
             return 0;
         }
@@ -345,20 +316,9 @@
     
     
     UIImageView *bg6 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_bg6"]];
-    TMOPActionItem *bg6Action = [self.onePageView actionItemWithView:bg6];
-    [bg6Action setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
-        
-        //if (onePageView.positionMark < onePageView.windowWidth * 7) {
-            return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 7, 0.0f, 0.0f), 0, 0, 0.0, 1.0);
-        //}
-        //else if (onePageView.positionMark < onePageView.windowWidth * 8) {
-        //    return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.positionMark, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
-        //}
-        //else
-        //    return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 8, 0.0f, 0.0f), -0, 0, 0.0, 1.0);
-        
-    }];
-    [bg6Action setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:bg6 AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+        return CATransform3DRotate(CATransform3DTranslate(transform, onePageView.windowWidth * 7, 0.0f, 0.0f), 0, 0, 0.0, 1.0);
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         if (onePageView.positionMark < onePageView.windowWidth * 6) {
             return 0;
         }
@@ -370,11 +330,9 @@
     }];
     
     UIImageView *noteAlert = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"teach_board"]];
-    TMOPActionItem *noteAlertAction = [self.onePageView actionItemWithView:noteAlert];
-    [noteAlertAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:noteAlert AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         return CATransform3DTranslate(transform, onePageView.positionMark, 397.0f, 0.0f);
-    }];
-    [noteAlertAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         return 1.0;
     }];
     
@@ -390,25 +348,22 @@
         [dotContanter addSubview:dotnotImg];
     }
     
-    TMOPActionItem *dotContanterAction = [self.onePageView actionItemWithView:dotContanter];
-    [dotContanterAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:dotContanter AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         return CATransform3DTranslate(transform, onePageView.positionMark + 160.0 - dotContanter.frame.size.width / 2, 462.0f, 0.0f);
-    }];
-    [dotContanterAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         return 0.3;
     }];
+
     
     UIImageView *dotImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
-    TMOPActionItem *dotImgAction = [self.onePageView actionItemWithView:dotImg];
-    [dotImgAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
-        
+    [self.onePageView actionItemWithView:dotImg AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         CGFloat nowX = onePageView.positionMark + 160.0 - dotContanter.frame.size.width / 2;
         nowX += onePageView.currentItemIndex * dot_space;
         return CATransform3DTranslate(transform, nowX, 462.0f, 0.0f);
-    }];
-    [dotImgAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         return 1.0;
     }];
+
     
     UILabel *alertText = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 300, 50))];
     alertText.textColor = [UIColor whiteColor];
@@ -418,12 +373,10 @@
     alertText.minimumFontSize = 7.0;
     alertText.font = [UIFont systemFontOfSize:15.0];
     alertText.backgroundColor = [UIColor clearColor];
-    TMOPActionItem *alertTextAction = [self.onePageView actionItemWithView:alertText];
-    [alertTextAction setActionBlock:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
+    [self.onePageView actionItemWithView:alertText AtPage:0 withAction:^CATransform3D(CATransform3D transform, TMOnePageView *onePageView) {
         alertText.text = [NSString stringWithFormat:@"%d", onePageView.currentItemIndex];
         return CATransform3DTranslate(transform, onePageView.positionMark + 10, 412.0f, 0.0f);
-    }];
-    [alertTextAction setAlphaBlock:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
+    } andAlpha:^CGFloat(CGFloat currentAlpha, TMOnePageView *onePageView) {
         return 1.0;
     }];
 }

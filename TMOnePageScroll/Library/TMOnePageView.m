@@ -30,6 +30,10 @@
 
 #import "TMOPActionItem.h"
 
+@interface TMOPActionItem (protected)
+- (TMOPActionItem *) initWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock;
+@end
+
 @interface TMOnePageView () <UIGestureRecognizerDelegate>
 {
     UIView *_mainContentView;
@@ -72,21 +76,21 @@
 @implementation TMOnePageView
 
 
-- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView
+- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock
 {
-    __autoreleasing TMOPActionItem *item = [[TMOPActionItem alloc] init];
-    CGRect f = aContentView.frame;
-    f.origin = CGPointZero;
-    aContentView.frame = f;
+    __autoreleasing TMOPActionItem *item = [[TMOPActionItem alloc] initWithView:aContentView AtPage:aPageIndex
+                                                                     withAction:aActionBlock andAlpha:aAlphaBlock];
     
-     item.contentView = [[UIView alloc] initWithFrame:aContentView.bounds];
-    [item.contentView addSubview:aContentView];
-    item.contentView.alpha = 0.0;
-    [self addSubview:item.contentView];
     
-    [_itemsArray addObject:item];
+    [self addActionItem:item];
     
     return item;
+}
+
+- (void) addActionItem:(TMOPActionItem *)aActionItem
+{
+    [_itemsArray addObject:aActionItem];
+    [self addSubview:aActionItem.contentView];
 }
 
 - (void) setUp
@@ -471,14 +475,11 @@
     CGFloat distance = [self decelerationDistance];
     _startOffset = [self scrollOffset];
     _endOffset = _startOffset + distance;
-    if (_statusFlag.paging)
-    {
-        if (distance > 0.0f)
-        {
+    if (_statusFlag.paging) {
+        if (distance > 0.0f) {
             _endOffset = ceilf(_endOffset);
         }
-        else
-        {
+        else {
             _endOffset = floorf(_endOffset);
         }
     }

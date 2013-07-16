@@ -23,8 +23,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "TMOPActionItem.h"
 
-@class TMOPActionItem;
 @interface TMOnePageView : UIView
 
 @property (nonatomic) CGFloat positionMark;
@@ -32,8 +32,9 @@
 @property (nonatomic) CGFloat windowWidth;
 @property (nonatomic) NSUInteger numberOfPage;
 
-- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView;
+- (TMOPActionItem *) actionItemWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock;
 
+- (void) addActionItem:(TMOPActionItem *)aActionItem;
 - (NSInteger) currentItemIndex;
 
 @end

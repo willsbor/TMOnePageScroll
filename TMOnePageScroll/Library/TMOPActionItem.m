@@ -24,7 +24,45 @@
 
 #import "TMOPActionItem.h"
 
+@interface TMOPActionItem ()
+- (TMOPActionItem *) initWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock;
+
+@end
+
 @implementation TMOPActionItem
+@synthesize actionBlock = _actionBlock;
+@synthesize alphaBlock = _alphaBlock;
+@synthesize pageIndex = _pageIndex;
+@synthesize contentView = _contentView;
+
++ (TMOPActionItem *) actionItemWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock
+{
+    __autoreleasing TMOPActionItem *item = [[TMOPActionItem alloc] initWithView:aContentView AtPage:aPageIndex withAction:aActionBlock andAlpha:aAlphaBlock];
+    
+    return item;
+}
+
+- (TMOPActionItem *) initWithView:(UIView *)aContentView AtPage:(NSUInteger)aPageIndex withAction:(TMOPActionBlock)aActionBlock andAlpha:(TMOPAlphaBlock)aAlphaBlock
+{
+    self = [super init];
+    if (self) {
+        
+        _actionBlock = [aActionBlock copy];
+        _alphaBlock = [aAlphaBlock copy];
+        _pageIndex = aPageIndex;
+        
+        
+        CGRect f = aContentView.frame;
+        f.origin = CGPointZero;
+        aContentView.frame = f;
+        
+        UIView *baseView = [[UIView alloc] initWithFrame:aContentView.bounds];
+        [baseView addSubview:aContentView];
+        baseView.alpha = 0.0;
+        _contentView = baseView;
+    }
+    return self;
+}
 
 - (id)init
 {
